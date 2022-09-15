@@ -11,43 +11,6 @@ env:
   SERVICE_NAME: react-gcp-app
 
 jobs:
-  build:
-    name: Build React App
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./react_native_app
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@main
-
-      - name: Setup Node.js (NPM)
-        uses: actions/setup-node@master
-        with:
-          node-version: '16.x'
-
-      - name: Use cached node_modules
-        uses: actions/cache@master
-        with:
-          path: node_modules
-          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            nodeModules-
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
-
-      - name: Build Development
-        run: yarn build
-
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: build
-          path: react_native_app/build
 
   deploy-gcr:
     name: Deploy to GCR
