@@ -8,12 +8,15 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
   RUN_REGION: us-central1
-  SERVICE_NAME: test-react-gcp
+  SERVICE_NAME: react-gcp-app
 
 jobs:
   build:
     name: Build React App
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react-app
 
     steps:
       - name: Checkout Repo
@@ -44,12 +47,15 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: build
-          path: my-app/.docker/build
+          path: react-app/build
 
   deploy-gcr:
     name: Deploy to GCR
     needs: build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react-app
 
     steps:
       - name: Checkout Repo
@@ -59,7 +65,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
           name: build
-          path: my-app/.docker/build
+          path: react-app/build
 
       - name: Setup GCloud Auth
         id: auth
@@ -76,8 +82,6 @@ jobs:
           gcloud builds submit \
             --quiet \
             --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
-        working-directory: my-app/.docker
-
 
       # Deploy image to Cloud Run
       - name: Deploy GCR
