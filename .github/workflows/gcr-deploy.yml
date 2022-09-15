@@ -8,20 +8,61 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCR_PROJECT }}
   RUN_REGION: us-central1
-  SERVICE_NAME: react-gcp-app
+  SERVICE_NAME: test-react-gcp
 
 jobs:
+  build:
+    name: Build React App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set NODE_PATH
+        run: echo "NODE_PATH=./my-app/node_modules" >> $GITHUB_ENV
+
+      - name: Checkout Repo
+        uses: actions/checkout@main
+
+      - name: Setup Node.js (NPM)
+        uses: actions/setup-node@master
+        with:
+          node-version: '16.x'
+
+      - name: Use cached node_modules
+        uses: actions/cache@master
+        with:
+          path: node_modules
+          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            nodeModules-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Build Development
+        run: yarn build
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: build
+          path: my-app/.docker/build
 
   deploy-gcr:
     name: Deploy to GCR
+    needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./react_native_app
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@main
+
+      - name: Download Artifact
+        uses: actions/download-artifact@main
+        with:
+          name: build
+          path: my-app/.docker/build
 
       - name: Setup GCloud Auth
         id: auth
@@ -38,6 +79,8 @@ jobs:
           gcloud builds submit \
             --quiet \
             --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
+        working-directory: my-app/.docker
+
 
       # Deploy image to Cloud Run
       - name: Deploy GCR
