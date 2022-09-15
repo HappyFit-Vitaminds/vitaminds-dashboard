@@ -1,33 +1,20 @@
-# pull base image
-FROM node:14.13.1-buster-slim
+FROM node:14-alpine as react-build
 
-# set our node environment, either development or production
-# defaults to production, compose overrides this to development on build and run
-ARG NODE_ENV=production
-ENV NODE_ENV $NODE_ENV
-
-# default to port 19006 for node, and 19001 and 19002 (tests) for debug
-ARG PORT=19006
-ENV PORT $PORT
-EXPOSE $PORT 19001 19002
-
-# install global packages
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH /home/node/.npm-global/bin:$PATH
-RUN npm i --unsafe-perm --allow-root -g npm@latest expo-cli@latest
+RUN npm i --unsafe-perm -g npm@latest expo-cli@latest
+WORKDIR /app
+ADD . ./
+RUN yarn
+RUN npx expo-optimize
 
-# install dependencies first, in a different location for easier app bind mounting for local development
-# due to default /opt permissions we have to create the dir with root and change perms
-RUN mkdir /opt/react_native_app
-WORKDIR /opt/react_native_app
-ENV PATH /opt/react_native_app/.bin:$PATH
-COPY ./package.json ./package-lock.json ./
-RUN npm install
+RUN expo build:web --release-channel prod
 
-# copy in our source code last, as it changes the most
-WORKDIR /opt/react_native_app/app
-# for development, we bind mount volumes; comment out for production
-COPY ./ .
-
-ENTRYPOINT ["npm", "run"]
-CMD ["web"]
+# ---
+FROM nginx:alpine
+ADD nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=react-build /app/web-build /usr/share/nginx/html
+ENV PORT 8080
+ENV HOST 0.0.0.0
+EXPOSE 8080
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"`
