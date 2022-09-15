@@ -23,12 +23,6 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@main
 
-      - name: Download Artifact
-        uses: actions/download-artifact@main
-        with:
-          name: build
-          path: react_native_app/build
-
       - name: Setup GCloud Auth
         id: auth
         uses: google-github-actions/auth@v0.4.0
