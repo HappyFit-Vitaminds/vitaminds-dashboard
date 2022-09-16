@@ -1,4 +1,5 @@
 import { React } from 'react';
+import { Chart } from 'chart.js/auto'; /* eslint-disable */ 
 import { Bar } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
 import { Pie, Doughnut } from 'react-chartjs-2';
