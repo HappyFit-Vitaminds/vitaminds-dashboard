@@ -1,6 +1,4 @@
-import React from 'react';
-import { CategoryScale } from 'chart.js';
-import Chart from 'chart.js/auto';
+import { React } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
 import { Pie, Doughnut } from 'react-chartjs-2';
@@ -60,7 +58,7 @@ const eventState3 = {
 
 const state1 = {
   labels: ['January', 'February', 'March',
-    'April', 'May','June' ,'July', 'August','September'],
+    'April', 'May', 'June', 'July', 'August', 'September'],
   datasets: [
     {
       label: '# of sessions completed per month',
@@ -85,7 +83,7 @@ const state1 = {
 
 const state2 = {
   labels: ['January', 'February', 'March',
-    'April', 'May','June' ,'July','August','September'],
+    'April', 'May', 'June', 'July', 'August', 'September'],
   datasets: [
     {
       label: '# of Issues logged per month',
@@ -124,7 +122,7 @@ export default function App() {
     this.changeUser = e;
   }
   return (
-    <div style={{ backgroundColor: "#FFD966", width: "100%", marginBottom: "20%"}}>
+    <div style={{ backgroundColor: "#FFD966", width: "100%", marginBottom: "20%" }}>
       <div style={{ backgroundColor: "#FFD966", float: "left", width: "500px", minHeight: "300px" }}>
         <Bar
           data={state}
@@ -144,7 +142,7 @@ export default function App() {
       <div style={{ backgroundColor: "#FFD966", marginLeft: "600px", width: "500px", minHeight: "300px" }}>
         <div>
           USERS:
-          <select id="users"  onChange={(e) => changeUser(e.target.value)}>
+          <select id="users" onChange={(e) => changeUser(e.target.value)}>
             <option value="incatrex">incatrex</option>
             <option value="dhawal">dhawal</option>
             <option value="Kaustubh">Kaustubh</option>
