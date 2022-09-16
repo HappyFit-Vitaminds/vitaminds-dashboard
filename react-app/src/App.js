@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CategoryScale } from 'chart.js';
 import Chart from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
@@ -19,31 +19,31 @@ const state = {
   ]
 }
 
-const eventState1 = {
-  labels: ['1-Aug-22', '2-Aug-22', '3-Aug-22', '4-Aug-22', '5-Aug-22', '6-Aug-22', '7-Aug-22', '8-Aug-22', '9-Aug-22', '10-Aug-22', '12-Aug-22', '13-Aug-22', '14-Aug-22', '15-Aug-22', '16-Aug-22', '17-Aug-22', '18-Aug-22', '19-Aug-22', '20-Aug-22', '21-Aug-22', '22-Aug-22', '23-Aug-22', '24-Aug-22', '25-Aug-22', '26-Aug-22', '27-Aug-22', '28-Aug-22', '29-Aug-22', '30-Aug-22'],
-  datasets: [
-    {
-      label: 'Sleep Score',
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: [65, 66, 67, 68, 69, 63, 64, 62, 65, 66, 67, 68, 69, 70, 70, 71, 72, 73, 73, 73, 73, 73, 73, 74, 75, 76, 77, 77, 77]
-    }
-  ]
-}
+// const eventState1 = {
+//   labels: ['1-Aug-22', '2-Aug-22', '3-Aug-22', '4-Aug-22', '5-Aug-22', '6-Aug-22', '7-Aug-22', '8-Aug-22', '9-Aug-22', '10-Aug-22', '12-Aug-22', '13-Aug-22', '14-Aug-22', '15-Aug-22', '16-Aug-22', '17-Aug-22', '18-Aug-22', '19-Aug-22', '20-Aug-22', '21-Aug-22', '22-Aug-22', '23-Aug-22', '24-Aug-22', '25-Aug-22', '26-Aug-22', '27-Aug-22', '28-Aug-22', '29-Aug-22', '30-Aug-22'],
+//   datasets: [
+//     {
+//       label: 'Sleep Score',
+//       backgroundColor: 'rgba(75,192,192,1)',
+//       borderColor: 'rgba(0,0,0,1)',
+//       borderWidth: 2,
+//       data: [65, 66, 67, 68, 69, 63, 64, 62, 65, 66, 67, 68, 69, 70, 70, 71, 72, 73, 73, 73, 73, 73, 73, 74, 75, 76, 77, 77, 77]
+//     }
+//   ]
+// }
 
-const eventState2 = {
-  labels: ['1-Aug-22', '2-Aug-22', '3-Aug-22', '4-Aug-22', '5-Aug-22', '6-Aug-22', '7-Aug-22', '8-Aug-22', '9-Aug-22', '10-Aug-22', '12-Aug-22', '13-Aug-22', '14-Aug-22', '15-Aug-22', '16-Aug-22', '17-Aug-22', '18-Aug-22', '19-Aug-22', '20-Aug-22', '21-Aug-22', '22-Aug-22', '23-Aug-22', '24-Aug-22', '25-Aug-22', '26-Aug-22', '27-Aug-22', '28-Aug-22', '29-Aug-22', '30-Aug-22'],
-  datasets: [
-    {
-      label: 'Sleep Score',
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: [70, 75, 67, 68, 69, 63, 64, 62, 65, 66, 67, 68, 69, 70, 70, 71, 72, 73, 73, 73, 73, 73, 73, 74, 75, 76, 77, 77, 77]
-    }
-  ]
-}
+// const eventState2 = {
+//   labels: ['1-Aug-22', '2-Aug-22', '3-Aug-22', '4-Aug-22', '5-Aug-22', '6-Aug-22', '7-Aug-22', '8-Aug-22', '9-Aug-22', '10-Aug-22', '12-Aug-22', '13-Aug-22', '14-Aug-22', '15-Aug-22', '16-Aug-22', '17-Aug-22', '18-Aug-22', '19-Aug-22', '20-Aug-22', '21-Aug-22', '22-Aug-22', '23-Aug-22', '24-Aug-22', '25-Aug-22', '26-Aug-22', '27-Aug-22', '28-Aug-22', '29-Aug-22', '30-Aug-22'],
+//   datasets: [
+//     {
+//       label: 'Sleep Score',
+//       backgroundColor: 'rgba(75,192,192,1)',
+//       borderColor: 'rgba(0,0,0,1)',
+//       borderWidth: 2,
+//       data: [70, 75, 67, 68, 69, 63, 64, 62, 65, 66, 67, 68, 69, 70, 70, 71, 72, 73, 73, 73, 73, 73, 73, 74, 75, 76, 77, 77, 77]
+//     }
+//   ]
+// }
 
 const eventState3 = {
   labels: ['1-Aug-22', '2-Aug-22', '3-Aug-22', '4-Aug-22', '5-Aug-22', '6-Aug-22', '7-Aug-22', '8-Aug-22', '9-Aug-22', '10-Aug-22', '12-Aug-22', '13-Aug-22', '14-Aug-22', '15-Aug-22', '16-Aug-22', '17-Aug-22', '18-Aug-22', '19-Aug-22', '20-Aug-22', '21-Aug-22', '22-Aug-22', '23-Aug-22', '24-Aug-22', '25-Aug-22', '26-Aug-22', '27-Aug-22', '28-Aug-22', '29-Aug-22', '30-Aug-22'],
@@ -108,16 +108,16 @@ const state2 = {
   ]
 }
 
-const Tab = (value) => {
+// const Tab = (value) => {
 
-  if (value.toString() === 'dhawal') {
-    return <eventState2 />;
-  } else if (value.toString() === 'Kaustubh') {
-    return <eventState3 />;
-  } else {
-    return <eventState1 />;
-  }
-};
+//   if (value.toString() === 'dhawal') {
+//     return <eventState2 />;
+//   } else if (value.toString() === 'Kaustubh') {
+//     return <eventState3 />;
+//   } else {
+//     return <eventState1 />;
+//   }
+// };
 
 export default function App() {
   const changeUser = (e) => {
