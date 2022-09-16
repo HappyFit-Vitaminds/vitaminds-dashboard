@@ -1,5 +1,6 @@
 import { React } from 'react';
-import { Chart } from 'chart.js/auto'; /* eslint-disable */ 
+// eslint-disable-next-line 
+import { Chart } from 'chart.js/auto'; 
 import { Bar } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
 import { Pie, Doughnut } from 'react-chartjs-2';
@@ -123,7 +124,7 @@ export default function App() {
     this.changeUser = e;
   }
   return (
-    <div style={{ backgroundColor: "#FFD966", width: "100%", marginBottom: "20%" }}>
+    <div style={{ backgroundColor: "#FFD966", width: "100%", marginBottom: "5%" }}>
       <div style={{ backgroundColor: "#FFD966", float: "left", width: "500px", minHeight: "300px" }}>
         <Bar
           data={state}
