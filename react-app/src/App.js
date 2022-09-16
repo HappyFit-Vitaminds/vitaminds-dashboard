@@ -120,7 +120,6 @@ const Tab = (value) => {
 };
 
 export default function App() {
-  // this.changeUser = 'incatrex';
   const changeUser = (e) => {
     this.changeUser = e;
   }
@@ -150,8 +149,6 @@ export default function App() {
             <option value="dhawal">dhawal</option>
             <option value="Kaustubh">Kaustubh</option>
           </select>
-          {/* <h4>You selected {(this.changeUser != undefined) && (this.changeUser != '') ?  this.changeUer :"nouser"}</h4> */}
-          {/* <Tab value={value} /> */}
         </div>
         <Line
           data={eventState3}
